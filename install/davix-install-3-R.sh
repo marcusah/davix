@@ -37,5 +37,5 @@ echo "Installing R Studio"
 cd $DPMI/RStudio
 apt-get -y install libgstreamer-plugins-base0.10-0
 
-wget -c https://download1.rstudio.org/rstudio-0.99.451-amd64.deb
+wget -c https://download1.rstudio.org/rstudio-0.97.311-amd64.deb
 dpkg -i rstudio-*.deb
