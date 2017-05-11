@@ -21,14 +21,14 @@ apt-get -y install r-cran-vcd r-cran-xml r-doc-html r-doc-pdf r-mathlib r-recomm
 
 mkdir $DPMI/RPackages
 cd $DPMI/RPackages
-wget -c https://cran.r-project.org/src/contrib/FactoMineR_1.26.tar.gz
-wget -c https://cran.r-project.org/src/contrib/leaps_2.9.tar.gz
-wget -c https://cran.r-project.org/src/contrib/HH_3.0-4.tar.gz
+wget -c https://cran.r-project.org/src/contrib/FactoMineR_1.35.tar.gz
+wget -c https://cran.r-project.org/src/contrib/leaps_3.0.tar.gz 
+wget -c https://cran.r-project.org/src/contrib/HH_3.1-34.tar.gz
 wget -c https://cran.r-project.org/src/contrib/ellipse_0.3-8.tar.gz
-    R CMD INSTALL leaps_2.9.tar.gz
+    R CMD INSTALL leaps_3.0.tar.gz
     R CMD INSTALL ellipse_0.3-8.tar.gz
-	R CMD INSTALL FactoMineR_1.26.tar.gz
-	R CMD INSTALL HH_3.0-4.tar.gz
+	R CMD INSTALL FactoMineR_1.35.tar.gz
+	R CMD INSTALL HH_3.1-34.tar.gz
 
 
 ## R Studio
@@ -37,5 +37,5 @@ echo "Installing R Studio"
 cd $DPMI/RStudio
 apt-get -y install libgstreamer-plugins-base0.10-0
 
-wget -c https://download1.rstudio.org/rstudio-0.99.451-amd64.deb
+wget -c https://download1.rstudio.org/rstudio-0.97.311-amd64.deb
 dpkg -i rstudio-*.deb
