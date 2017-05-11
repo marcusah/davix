@@ -39,18 +39,18 @@ make install
 ## Argus Server
 echo "Installing Argus Server"
 cd $DPMI/argus
-wget -c http://qosient.com/argus/src/argus-3.0.8.1.tar.gz
-wget -c http://qosient.com/argus/src/argus-clients-3.0.8.tar.gz
-tar -xvpf argus-3.0.8.1.tar.gz 
-tar -xvpf argus-clients-3.0.8.tar.gz 
-cd argus-3.0.8.1/
+wget -c http://qosient.com/argus/src/argus-latest.tar.gz
+wget -c http://qosient.com/argus/src/argus-clients-latest.tar.gz
+tar -xvpf argus-latest.tar.gz 
+tar -xvpf argus-clients-latest.tar.gz 
+cd argus-latest/
 ./configure
 make
 make install
 
 ## Argus Client
 echo "Installing Argus Client"
-cd $DPMI/argus-clients-3.0.8/
+cd $DPMI/argus-clients-latest/
 ./configure 
 make
 make install
@@ -69,7 +69,7 @@ ln -s /opt/davix/tcp-reduce-1.0/tcp-summary /opt/davix/scripts/tcp-summary
 ## GraphViz New Version
 echo "Installing GraphViz"
 cd $DPMI/graphviz
-wget -c http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.38.0.tar.gz
+wget -c http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.40.1.tar.gz
 tar -xzf graphviz-*.tar.gz
 cd graphviz*
 ./configure --prefix=/usr --datadir=/usr/share --infodir=/usr/share/info --mandir=/usr/share/man
@@ -82,8 +82,8 @@ dot -c
 ## Tulip
 echo "Installing Tulip"
 cd $DPMI/tulip
-wget -c 'https://sourceforge.net/projects/auber/files/tulip/tulip-4.7.0/tulip-4.7.0_src.tar.gz/download' -O tulip-4.7.0_src.tar.gz
-tar -xzf tulip-4.7.0_src.tar.gz
+wget -c 'https://sourceforge.net/projects/auber/files/tulip/tulip-4.10.0/tulip-4.10.0_src.tar.gz/download' -O tulip-4.10.0_src.tar.gz
+tar -xzf tulip-4.10.0_src.tar.gz
 cd tulip
 cmake . 
 make
@@ -92,9 +92,9 @@ make install
 ## BroIDS (requires CMake)
 echo "Installing BroIDS"
 cd $DPMI/BroIDS
-wget -c https://www.bro.org/downloads/release/bro-2.4.tar.gz
-tar -xvpf bro-2.4.tar.gz
-cd bro-2.4
+wget -c https://www.bro.org/downloads/release/bro-2.4.1.tar.gz
+tar -xvpf bro-2.4.1.tar.gz
+cd bro-2.4.1
 ./configure --prefix=$DH/broids
 make
 make install
@@ -103,7 +103,7 @@ $DH/broids/bin/broctl install
 ## Perl Chart Director
 echo "Installing ChartDirector"
 cd $DPMI/PerlPackages
-wget -c https://download2.advsofteng.com/chartdir_perl_linux.tar.gz
+wget -c download2.advsofteng.com/chartdir_perl_linux_64.tar.gz 
 tar -xvpf chartdir_perl_linux.tar.gz
 # Add to perl @INC Path
 mv ChartDirector /usr/lib/perl5/
@@ -115,11 +115,11 @@ cpan -i Test::Manifest
 ## Cytoscape
 echo "Installing Cytoscape"
 cd $DPMI/Cytoscape
-wget -c http://chianti.ucsd.edu/cytoscape-3.2.1/Cytoscape_3_2_1_unix.sh
-chmod +x ./Cytoscape_3_2_1_unix.sh
+wget -c http://chianti.ucsd.edu/cytoscape-3.5.1/Cytoscape_3_5_1_unix.sh
+chmod +x ./Cytoscape_3_5_1_unix.sh
 mkdir -p $DH/Cytoscape
-./Cytoscape_3_2_1_unix.sh -q -dir /opt/davix/Cytoscape/
-rm Cytoscape_3_2_1_unix.sh      # remove the installer file. It's huge
+./Cytoscape_3_5_1_unix.sh -q -dir /opt/davix/Cytoscape/
+rm Cytoscape_3_5_1_unix.sh      # remove the installer file. It's huge
 
 # EVENTLOG
 echo "Installing Eventlog"
@@ -136,10 +136,13 @@ cd eventlog-0.2.4
 ## FlowTag
 echo "Installing FlowTag"
 cd $DPMI/FlowTag
-wget -c https://chrislee.dhs.org/projects/flowtag/flowtag-2.0.5.tgz
-tar -xvpf flowtag-2.0.5.tgz
-cd flowtag-2.0.5
-ruby setup.rb
+git clone git@github.com:chrislee35/flowtag.git
+#wget -c https://chrislee.dhs.org/projects/flowtag/flowtag-2.0.5.tgz #insecure
+#tar -xvpf flowtag-2.0.5.tgz
+
+cd flowtag
+gem install flowtag
+#ruby setup.rb
 
 
 ## Gephi
@@ -202,10 +205,10 @@ mv inetvis-0.9.3.1 $DH
 # Logstash
 echo "Installing ElasticSearch LogStash Kibana"
 cd /tmp
-wget -c https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha4/elasticsearch-5.0.0-alpha4.deb
-wget -c https://download.elastic.co/logstash/logstash/packages/debian/logstash-5.0.0-alpha4.deb
-dpkg -i elasticsearch-5.0.0-alpha4.deb
-dpkg -i logstash-5.0.0-alpha4.deb
+wget -c https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.4.0.deb
+wget -c https://artifacts.elastic.co/downloads/logstash/logstash-5.4.0.deb
+dpkg -i elasticsearch-5.4.0.deb
+dpkg -i logstash-5.4.0.deb
 
 echo "LS_GROUP=adm" >> /etc/default/logstash
 
@@ -227,30 +230,31 @@ output {
 }
 EOF
 # Kibana
-wget -c https://download.elastic.co/kibana/kibana/kibana-5.0.0-alpha4-amd64.deb
-dpkb -i kibana-5.0.0-alpha4-amd64.deb
+wget -c https://artifacts.elastic.co/downloads/kibana/kibana-5.4.0-amd64.deb
+dpkb -i kibana*.deb
 
 ## Python ElasticSearch
 pip install elasticsearch
 
 ## Maltego
 cd $DPMI/maltego
-wget -c https://www.paterva.com/malv36/community/MaltegoChlorineCE.v3.6.0.6640.deb
-dpkg -i MaltegoChlorineCE.v3.6.0.6640.deb
+wget -c https://www.paterva.com/web7/downloads.php#tab-3 #broken. Might Work....
+dpkg -i MaltegoCE*.deb
 
 
 ## Mondrian
 echo "Installing Mondrian"
 cd $DPMI/Mondrian
-wget -c https://www.theusrus.de/Mondrian/Mondrian15b.jar
+wget -c https://sourceforge.net/projects/mondrian/files/latest/download/mondrian-13.0.0-25.jar.sum # fixed
 mkdir -p $DH/Mondrian
-mv Mondrian15b.jar $DH/Mondrian/Mondrian.jar
+mv Mondrian*.jar $DH/Mondrian/Mondrian.jar
 
 ## Netgrok
 echo "Installing Netgrok"
 cd $DPMI/Netgrok
-wget -c https://netgrok.googlecode.com/files/netgrok20080928.zip
-unzip netgrok20080928.zip
+#wget -c https://netgrok.googlecode.com/files/netgrok20080928.zip
+git clone git@github.com:codydunne/netgrok.git
+#unzip netgrok*.zip
 # TODO Resolve Netgrok issues
 # Fix ini file
 #mv -f $DPMI/davix/install/fixes/netgrok/groups.ini Netgrok/ 
@@ -274,9 +278,9 @@ mv nsm-console $DH
 ## p0f
 echo "Installing p0f"
 cd $DPMI/p0f/
-wget -c https://lcamtuf.coredump.cx/p0f3/releases/p0f-3.07b.tgz
-tar -xvpf p0f-3.07b.tgz
-cd p0f-3.07b
+wget -c lcamtuf.coredump.cx/p0f3/releases/p0f-3.09b.tgz 
+tar -xvpf p0f-3.09b.tgz
+cd p0f-3.09b
 ./build.sh
 mkdir -p $DH/p0f/bin
 mv docs $DH/p0f
@@ -293,7 +297,7 @@ mv p0f-client $DH/p0f/bin
 ## Parvis
 echo "Installing Parvis"
 cd $DPMI/Parvis
-wget -c https://www.mediavirus.org/parvis/parvis-0.3.1.zip
+wget -c https://www.mediavirus.org/parvis/parvis-0.3.1.zip 
 unzip parvis-0.3.1.zip
 cp parvis.bat parvish.sh
 chmod +x parvish.sh
@@ -304,7 +308,7 @@ mv Parvis $DH
 ## Processing
 echo "Installing Processing"
 cd $DPMI/processing
-wget -c https://download.processing.org/processing-2.1-linux32.tgz
+wget -c download.processing.org/processing-3.3-linux64.tgz
 tar -xvpf processing-2.1-linux32.tgz
 mv processing-2.1 $DH
 
@@ -322,12 +326,12 @@ chmod +x pulledpork.pl
 ## RT Graph 3D
 echo "Installing RT Graph 3D"
 cd $DPMI/RTGraph3D
-wget -c https://www.secdev.org/projects/rtgraph3d/files/rtgraph3d-0.1.tgz
+wget -c www.secdev.org/projects/rtgraph3d/files/rtgraph3d-0.1.tgz 
 tar -xvpf rtgraph3d-0.1.tgz
 # Dependencies - povexport
-wget -c https://www.vpython.org/contents/contributed/povexport-2012-07-10.zip
-unzip povexport-2012-07-10.zip
-mv povexport-2012-07-10/* rtgraph3d-0.1/
+wget -c www.vpython.org/contents/contributed/povexport-2015-09-04.zip 
+unzip povexport*.zip
+mv povexport-2015-09-04/* rtgraph3d-0.1/
 # Dependencies - PyInline
 wget -c https://sourceforge.net/projects/pyinline/files/pyinline/0.03/PyInline-0.03.tar.gz
 tar -xvpf PyInline-0.03.tar.gz
@@ -339,7 +343,7 @@ mv rtgraph3d-0.1 $DH
 ## rumint
 echo "Installing rumint"
 cd $DPMI/Rumint
-wget -c https://www.rumint.org/software/rumint/rumint_v.214.zip
+wget -c www.rumint.org/software/rumint/rumint_v.214.zip #fixed
 unzip rumint_v.214.zip
 cd rumint_2.14_distro
 wine ./setup.exe
@@ -387,17 +391,17 @@ mv Treemap-4.1.2 $DH
 echo "Installing Walrus"
 ## build java3d environment
 cd $DPMI/walrus
-wget ftp://www.daba.lv/pub/Programmeeshana/java/3D_java/java3d-1_5_1-linux-i586.bin
+wget ftp://www.daba.lv/pub/Programmeeshana/java/3D_java/java3d-1_5_2-linux-i586.bin
 sh java3d-1_5_1-linux-i586.bin
 mv lib/ext/* /usr/lib/jvm/java-1.6.0-openjdk-i386/jre/lib/ext/
 mv lib/i386/* /usr/lib/jvm/java-1.6.0-openjdk-i386/jre/lib/i386/
 # Get Walrus Test Data
 mkdir tmp
 cd tmp
-wget -c https://www.soa-world.de/dev/walruscsv/walruscsv.zip
+wget -c www.soa-world.de/dev/walruscsv/walruscsv.zip 
 unzip walruscsv.zip
 g++ wlink.cpp main.cpp wtree.cpp -o walruscsv
-wget -c https://www.soa-world.de/dev/walruscsv/testdata.zip
+wget -c www.soa-world.de/dev/walruscsv/testdata.zip 
 unzip testdata.zip
 # Get Walrus
 wget -c https://www.caida.org/tools/visualization/walrus/download/walrus-0.6.3.tar.gz
@@ -423,7 +427,7 @@ python setup.py install
 
 # ipsumdump
 cd $DMPI/ipsumdump
-wget -c https://www.read.seas.harvard.edu/~kohler/ipsumdump/ipsumdump-1.84.tar.gz
+wget -c www.read.seas.harvard.edu/~kohler/ipsumdump/ipsumdump-1.84.tar.gz 
 tar -xzf ipsumdump-1.84.tar.gz
 cd ipsumdump-1.84
 ./configure
@@ -432,9 +436,9 @@ make install
 
 # passivedns
 cd $DMPI/passivedns
-wget -c https://github.com/gamelinux/passivedns/archive/1.0.tar.gz
-tar -xzf 1.0.tar.gz
-cd passivedns-1.0/src
+git clone git@github.com:gamelinux/passivedns.git
+#tar -xzf 1.0.tar.gz
+#cd passivedns-1.0/src
 make
 mkdir -p $DH/passivedns
 mv passivedns $DH/passivedns
