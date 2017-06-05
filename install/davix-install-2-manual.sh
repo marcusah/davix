@@ -26,7 +26,7 @@ mkdir gephi p0f argus pulledpork BroIDS jquery-sparklines nsm-console eventlog T
 git clone https://github.com/zrlram/afterglow $DH/afterglow
 git clone https://github.com/zrlram/parsers $DH/parsers
 
-## SiLK
+## SiLK 
 echo "Installing SiLK"
 cd $DPMI/silk
 wget -c https://tools.netsa.cert.org/releases/silk-3.9.0.tar.gz
@@ -136,7 +136,7 @@ cd eventlog-0.2.4
 ## FlowTag
 echo "Installing FlowTag"
 cd $DPMI/FlowTag
-git clone git@github.com:chrislee35/flowtag.git
+git clone https://github.com/chrislee35/flowtag.git
 #wget -c https://chrislee.dhs.org/projects/flowtag/flowtag-2.0.5.tgz #insecure
 #tar -xvpf flowtag-2.0.5.tgz
 
@@ -197,7 +197,7 @@ cd $DPMI/InetVis
 wget -c http://www.cs.ru.ac.za/research/g02v2468/inetvis/0.9.3/inetvis-0.9.3.1.tar.gz
 tar -xvpf inetvis-0.9.3.1.tar.gz
 # Dependency
-wget https://mirrors.kernel.org/ubuntu/pool/main/q/qt-x11-free/libqt3-mt_3.3.8-b-6ubuntu2_i386.deb
+wget https://mirrors.kernel.org/ubuntu/pool/main/q/qt-x11-free/libqt3-mt_3.3.8-b-8ubuntu3_i386.deb
 dpkg -i libqt3-mt_3.3.8-b-6ubuntu2_i386.deb
 mv inetvis-0.9.3.1 $DH
 
@@ -238,7 +238,7 @@ pip install elasticsearch
 
 ## Maltego
 cd $DPMI/maltego
-wget -c https://www.paterva.com/web7/downloads.php#tab-3 #broken. Might Work....
+wget -c 'https://www.paterva.com/web7/downloads.php#tab-3' -O MaltegoCE.v4.0.11.9358.deb #broken. Needs registration?
 dpkg -i MaltegoCE*.deb
 
 
@@ -253,7 +253,8 @@ mv Mondrian*.jar $DH/Mondrian/Mondrian.jar
 echo "Installing Netgrok"
 cd $DPMI/Netgrok
 #wget -c https://netgrok.googlecode.com/files/netgrok20080928.zip
-git clone git@github.com:codydunne/netgrok.git
+codydunne
+git clone https://github.com/codydunne/netgrok.git
 #unzip netgrok*.zip
 # TODO Resolve Netgrok issues
 # Fix ini file
@@ -297,12 +298,14 @@ mv p0f-client $DH/p0f/bin
 ## Parvis
 echo "Installing Parvis"
 cd $DPMI/Parvis
-wget -c https://www.mediavirus.org/parvis/parvis-0.3.1.zip 
-unzip parvis-0.3.1.zip
-cp parvis.bat parvish.sh
-chmod +x parvish.sh
-cd ..
-mv Parvis $DH
+#wget -c https://github.com/eagereyes/ParVis/archive/master.zip
+#unzip parvis-0.3.1.zip
+git clone https://github.com/eagereyes/ParVis.git
+#cd ParVis
+#cp parvis.bat parvish.sh
+#chmod +x parvish.sh
+#cd ..
+mv ParVis $DH
 
 
 ## Processing
@@ -316,7 +319,7 @@ mv processing-2.1 $DH
 ## pulledpork: snort rules updater
 echo "Installing PulledPork"
 cd $DPMI/pulledpork/
-wget -c https://pulledpork.googlecode.com/files/pulledpork-0.7.0.tar.gz
+wget -c https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pulledpork/pulledpork-0.7.0.tar.gz
 tar -xvpf pulledpork-0.7.0.tar.gz
 mv pulledpork-0.7.0 $DH
 cd $DH/pulledpork-0.7.0
@@ -436,9 +439,9 @@ make install
 
 # passivedns
 cd $DMPI/passivedns
-git clone git@github.com:gamelinux/passivedns.git
+git clone https://github.com/gamelinux/passivedns.git
 #tar -xzf 1.0.tar.gz
-#cd passivedns-1.0/src
+cd passivedns/src
 make
 mkdir -p $DH/passivedns
 mv passivedns $DH/passivedns
@@ -459,3 +462,8 @@ mkdir $DH/scripts
 cp $DPMI/davix/install/scripts/* $DH/scripts
 ln -s /opt/davix/afterglow/afterglow.pl $DH/scripts/afterglow
 ln -s /opt/davix/broids/bin/bro $DH/scripts/bro
+
+
+
+
+
