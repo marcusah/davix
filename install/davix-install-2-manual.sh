@@ -238,7 +238,7 @@ pip install elasticsearch
 
 ## Maltego
 cd $DPMI/maltego
-wget -c 'https://www.paterva.com/web7/downloads.php#tab-3' -O MaltegoCE.v4.0.11.9358.deb #broken. Needs registration?
+wget -c 'https://www.paterva.com/web7/downloads.php#tab-3' -O MaltegoCE.v4.0.11.9358.deb #broken. Downloads, but needs registration?
 dpkg -i MaltegoCE*.deb
 
 
